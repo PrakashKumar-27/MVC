@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Question1.Models.UserPermission>
+
+@{
+    ViewBag.Title = "Userpermission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Userpermission</h2>
+
+<div>
+    <h4>UserPermission</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Sl.No
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+
+                    Page
+                </th>
+                <th>
+                    Controller
+                </th>
+                <th>
+                    Action
+                </th>
+                <th>
+                    Permission
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @i
+                    </th>
+                    <td>
+                        @item.Role.Name
+                    </td>
+                    <td>
+                        @(item.Page)
+                    </td>
+                    <td>
+                        @(item.Controller)
+                    </td>
+                    <td>
+                        @(item.Action)
+                    </td>
+                    <td>
+                        @if (item.Status == 1)
+                        {
+                            @Html.CheckBox("chk_" + item.Id, new { @checked = "checked", onchange = "ChangePermission(" + item.Id + ")" })
+                        }
+                        else
+                        {
+                            @Html.CheckBox("chk_" + item.Id, new { onchange = "ChangePermission(" + item.Id + ")" })
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    @section scripts{
+        <script type="text/javascript">
+            function ChangePermission(id) {
+                if ($("#chk_" + id).is(':checked')) {
+                    updateDatabase(id, 1);
+                }
+                else {
+                    updateDatabase(id, 0);
+                }
+            }
+            function updateDatabase(Id, Value) {
+                $.ajax('/user/updatepermissionAsync', {
+                    type: 'POST',
+                    data: { id: Id, value: Value },  // data to submit
+                    success: function (data, status, xhr) {
+                        alert("updated Successfully");
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        alert("failed!");
+                    }
+                });
+            }
+        </script>
+    }

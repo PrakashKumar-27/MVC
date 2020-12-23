@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Question1.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Sl.No
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Role
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @i
+                    </th>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @(item.Department)
+                    </td>
+                    <td>
+                        @(item.Role.Name)
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

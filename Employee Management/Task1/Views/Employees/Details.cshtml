@@ -1,0 +1,68 @@
+﻿@model Task1.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ENo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eno)
+        </dd>
+
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ename)
+        </dd>
+
+        <dt>
+            Department
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edept)
+        </dd>
+
+        <dt>
+            Contact No
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.econtact)
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eemail)
+        </dd>
+
+        <dt>
+            Status
+        </dt>
+
+        <dd>
+            @(Model.estatus.ToString() =="1" ? "Active" : "In Active")
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    @Html.ActionLink("Edit", "Edit", new { id = Model.eid }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-default" })
+</p>

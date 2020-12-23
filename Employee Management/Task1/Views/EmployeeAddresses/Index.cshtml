@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Task1.Models.EmployeeAddress>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee Address</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-body">
+            <div class="row">
+                <table class="table">
+                    <tr>
+                        <th>
+                           Name/Eno
+                        </th>
+                        <th>
+                            Is Permanant
+                        </th>
+                        <th>
+                            Address 1
+                        </th>
+                        <th>
+                            Address 2
+                        </th>
+                        <th>
+                            Landmark
+                        </th>
+                        <th>
+                            Country
+                        </th>
+                        <th>
+                            State
+                        </th>
+                        <th>
+                            City
+                        </th>
+                        <th>
+                            Pin
+                        </th>
+                        <th>
+                            Contact
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>Action</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Employee.ename /
+                                @Html.DisplayFor(modelItem => item.Employee.eno)
+                            </td>
+                            <td>
+                                @(item.ispermanant == true ? "Yes" : "No" )
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addressline1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addressline2)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.landmark)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.country1.code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.state1.code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.city1.code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.contact)
+                            </td>
+                            <td style="text-align:center">
+                                <button class="@( item.status == 1 ? "label label-success" : "label label-danger" )">
+                                    @( item.status == 1 ? "Active" : "InActive" )
+                                </button>
+                            </td>
+                            <td style="text-align:center;width:15%">
+                                <a href="@Url.Action("Details", "EmployeeAddresses", new { id = item.id})" class="btn btn-info" title="View Employee Address Details">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a href="@Url.Action("Edit", "EmployeeAddresses", new { id = item.id })" class="btn btn-warning" title="Edit Employee Address Details">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="@Url.Action("Delete", "EmployeeAddresses", new { id = item.id})" class="btn btn-danger" title="Delete Employee Address">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

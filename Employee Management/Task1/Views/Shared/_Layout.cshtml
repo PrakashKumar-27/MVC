@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - TASK 1</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("TASK 1", "Index", "Employees", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+                    <li>@Html.ActionLink("Employee Addresses", "Index", "EmployeeAddresses")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Task</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        window.onbeforeunload = function () {
+            $("input[type=button], input[type=submit]").attr("disabled", "disabled");
+
+        };
+        function bindDropDown(url, controlid, postData, value) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: url,
+                data: postData,
+                dataType: "json",
+                traditional: true,
+                success: function (data) {
+                    var ddl = $("#" + controlid + "");
+                    ddl.html('');
+                    ddl.append($('<option></option>').val(0).html("--Select--"));
+                    $.each(data, function (id, option) {
+                        ddl.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                    if (value != null && value != "")
+                        $("#" + controlid + "").val(value);
+                    else $("#" + controlid + "").val(0);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(ajaxOptions + 'Failed to retrieve states.');
+                }
+            });
+        }
+
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
